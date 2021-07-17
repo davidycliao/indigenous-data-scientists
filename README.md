@@ -1,2 +1,0 @@
-# indigenous-data-scientists
- 
