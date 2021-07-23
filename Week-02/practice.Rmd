@@ -1,0 +1,47 @@
+---
+title: "台灣議員縣補助款"
+subtitle: "資料出處：廖彥傑，台東縣議員建議款分配的政治分析，國立臺北大學公共行政暨政策學碩士論文"
+---
+
+- 讀資料
+```{r}
+library(readr)
+taitung_county <- read_csv("data/taitung_county.csv")
+```
+
+- 查閱整個資料結構
+```{r}
+taitung_county
+```
+- 用`head()`看看會怎樣
+```{r}
+head(taitung_county, n = 2)
+```
+
+- 用`$`選取變數
+```{r}
+taitung_county$建議筆數
+```
+
+
+- 看所有變數名稱
+```{r}
+names(taitung_county)
+```
+
+- 用`unique()`看族群別
+```{r}
+unique(taitung_county$族群別)
+```
+
+
+
+- 如果我要取出屬於布農族，如何做？
+```{r}
+taitung_county$族群別 == "布農族"
+```
+
+```{r}
+# taitung_county[taitung_county$族群別 == "布農族",]
+```
+

@@ -1,11 +1,11 @@
 ---
 title: ".hi-grey[原住民族資料分析線上訓練工作坊：R的基礎與應用]"
-subtitle: ".smallest.hi-slate[第一週]"
+subtitle: ".smallest.hi-slate[第二週]"
 author:
   - .hi-slate[Kacing 廖彥傑]
   - .smallest[英國艾賽克斯大學博士候選人]
 
-#date: "`r format(Sys.time(), '%d %B %Y')`"
+date: "`r format(Sys.time(), '%d %B %Y')`"
 output:
   xaringan::moon_reader:
     css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']     
@@ -77,7 +77,7 @@ options(device = function(file, width, height) {
 })
 options(knitr.table.format = "html")
 
-# pagedown::chrome_print("file:///Users/yenchiehliao/Dropbox/indigenous-data-scientists/Week-01/Week-01.html#1", verbose = FALSE)
+# pagedown::chrome_print("file:///Users/yenchiehliao/Dropbox/indigenous-data-scientists/Week-02/Week-02.html#1", verbose = FALSE)
 
 
 ```
@@ -85,30 +85,22 @@ options(knitr.table.format = "html")
 
 ---
 layout: true
-# 課程設計
+# 結構 (Data Structures)
 ---
 name:
 &nbsp;
 
 ### 我們課程主要包括：
 
-- 作業環境、基礎R語言、資料結構與套件導入、R的社群生態   
+```{r echo = F, out.width = "60%"}
+knitr::include_graphics("./images/image01.png.png")
+```
 
---
+##### 參考書目：R Cookbook Proven Recipes for Data Analysis, Statistics, and Graphics by J. D. Long, Paul Teetor
 
-- 向量(vector)、序列（list）、矩陣（matrix）、資料框架（dataframe） 
 
---
 
-- 資料類型結構、Tidyverse 相關模組 、函數式編程 (functional programming)、循環 
 
---
-
-- 資料視覺化EDA (explore data analysis) 、基礎統計分析與回歸、討論個人研究計畫
-
---
-
-- 用R檢視地圖資料、製作互動式地圖、文本分析與應用、基礎機器學習 
 
 
 ---
