@@ -77,7 +77,7 @@ options(device = function(file, width, height) {
 })
 options(knitr.table.format = "html")
 
-# pagedown::chrome_print("file:///Users/yenchiehliao/Dropbox/indigenous-data-scientists/Week-02/Week-02.html#1", verbose = FALSE)
+# pagedown::chrome_print("file:///Users/yenchiehliao/Dropbox/indigenous-data-scientists/Week-03/Week-03.html#1", verbose = FALSE)
 
 
 ```
@@ -260,7 +260,7 @@ name:
 
 &nbsp;
 
-- 文官網路調查資料(合併 2019 年新加樣本與 2018 年追蹤樣本) 中文編碼簿
+- [文官網路調查資料(合併 2019 年新加樣本與 2018 年追蹤樣本) 中文編碼簿](https://raw.githack.com/davidycliao/indigenous-data-scientists/main/Week-03/data/TIGCR-TGBS2019/Chinese/Panel%20and%20new%20samples/TIGCR-TGBS2019_CH_Questionnaire.pdf)
 
 --
 
