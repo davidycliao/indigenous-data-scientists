@@ -1,0 +1,28 @@
+一、檔案說明：檔案內容包含二個資料夾：
+1. 「Panel and new samples」：資料夾內的資料檔「TIGCR-TGBS2019」同時包含了在2019年執行第二波定群追蹤調查的追蹤樣本(第一波於2018年執行)，以及2019年執行新抽樣的調查樣本。合計1,119份成功樣本。
+2. 「Panel samples only」：資料夾內的資料檔「TIGCR-TGBS2019p」僅包含在2019年執行第二波定群追蹤調查的追蹤樣本(第一波於2018年執行)，追蹤成功的樣本為689份成功樣本。檔案年度後方的「p」字母表示「定群追蹤樣本」(panel sample)。
+3. 如果您想合併TGBS2018與TGBS2019兩年度的資料檔，可以使用TGBS2018的「no」變數，以及TGBS2019的「id」變數加以串接。
+
+
+二、檔案包含內容：
+1. CSV檔案(unicode編碼)：TIGCR-TGBS2019_CH.csv、TIGCR-TGBS2019p_CH.csv
+2. SPSS統計軟體檔案(適用SPSS第18版以上, unicode編碼)：TIGCR-TGBS2019_CH.sav、TIGCR-TGBS2019p_CH.sav
+3. Stata統計軟體檔案(適用Stata第14版以上, unicode編碼)：TIGCR-TGBS2019_CH.dta、TIGCR-TGBS2019p_CH.dta
+4. Microsoft Office Excel 格式：TIGCR-TGBS2019_CH.xlsx、TIGCR-TGBS2019p_CH.xlsx
+5. 編碼簿(PDF格式)：TIGCR-TGBS2019_CH_Codebook.pdf、TIGCR-TGBS2019p_CH_Codebook.pdf
+6. 編碼簿(Microsoft Office Word 格式)：TIGCR-TGBS2019_CH_Codebook.docx、TIGCR-TGBS2019p_CH_Codebook.docx
+7. 中文問卷(PDF格式)：TIGCR-TGBS2019_CH_Questionnaire.pdf、TIGCR-TGBS2019p_CH_Questionnaire.pdf
+8. 中文問卷(Microsoft Office Word 格式)：TIGCR-TGBS2019_CH_Questionnaire.docx、TIGCR-TGBS2019p_CH_Questionnaire.docx
+
+
+三、資料引用格式：
+本文使用的資料全部（部分）係採自「『台灣政經傳播研究』多年期研究規劃：2019年文官定群追蹤網路調查資料（TIGCR-TGBS2019）。「台灣政經傳播研究」（TIGCR）多年期計畫主持人為國立政治大學黃紀教授、中央研究院人文社會科學研究中心張卿卿研究員，TIGCR-TGBS2019為針對2019年全台灣文官進行之政治、經濟、傳播研究之年度計畫；詳細資料請參閱TIGCR網頁：http://tigcr.nccu.edu.tw/ 。作者感謝上述機構及人員提供資料協助，惟本文之內容概由作者自行負責。DOI：10.6923/TW-TIGCR-TGBS2019
+
+
+四、相關問題諮詢方式：
+地址：11605 - 台北市文山區指南路二段64號　國立政治大學台灣政經傳播研究中心
+電話：02 - 29393091 # 69323
+E-mail: tigcr.nccu@gmail.com
+
+
+**說明結束**

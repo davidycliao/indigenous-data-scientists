@@ -106,7 +106,7 @@ name:
 
 建立一個向量，命名(`names()`) 它。
 ```{r}
-v <- c(20, 20, NA)
+v <- c(20, 20, "David", "Kaching")
 names(v) <- c("Kacing", "Labak", "Truku")
 print(v)
 ```
@@ -137,6 +137,8 @@ a.list <- list(x = 1:6,
                z = c(TRUE, FALSE))
 ```
 
+
+
 --
 
 提取它
@@ -148,7 +150,7 @@ a.list$x
 
 另個方式提取它
 ```{r}
-a.list[["x"]]
+a.list[["z"]]
 ```
 
 ---
@@ -166,7 +168,7 @@ a.list["x"]
 
 用`c()`提取，挑取特定的**vector**
 ```{r}
-a.list[c(1,3)]
+a.list[c(2,3)]
 ```
 
 
@@ -179,14 +181,19 @@ name:
 
 `ncol = 1`的matrix
 ```{r}
-one.col.matrix <- matrix(1:6, ncol = 1)
+one.col.matrix <- matrix(1:100, ncol = 2)
+
 ```
+
+
+
 
 --
 
 `ncol = 2`的matrix
 ```{r}
 two.col.matrix <- matrix(1:6, ncol = 2)
+two.col.matrix
 ```
 
 --
@@ -220,7 +227,7 @@ name:
 my.vector <- c(1, 1, 0, 0, 0, 1)
 my.factor <- factor(x = my.vector,
                     levels = c(1, 0), 
-                    labels = c("treated", "control")) 
+                    labels = c("原住民", "不是原住民")) 
 ```
 
 用`levels()`看㔌幾種類別
@@ -258,7 +265,7 @@ str(another.list)
 
 刪除某個list 中的vector 
 ```{r}
-a.list$y <- NULL
+a.list$z <- NULL
 ```
 
 --
@@ -273,7 +280,9 @@ nested.list <- list(A = list("a", "aa", "aaa"),
 
 用`str()`查看
 ```{r}
-str(nested.list, max.level = 1)
+str(nested.list)
+
+help(str)
 ```
 
 
@@ -321,8 +330,9 @@ name:
 
 首先，建立一個鳥巢list，嘗試提換別的數值。
 ```{r}
-nested.list <- list(A = list("a", "aa", "aaa"), 
-                    B = list("b", "bb")) 
+nested.list <- list(list("a", "aa", "aaa"), 
+                    list("b", "bb"),
+                    list("David", "is", "hot")) 
 ```
 
 --
@@ -392,7 +402,7 @@ a.df$x
 
 另一個方式，提取變數裡的資料
 ```{r}
-a.df[["x"]]
+a.df["x"]
 ```
 
 --
@@ -407,16 +417,32 @@ a.df["x"]
 
 選取第一個column
 ```{r}
-a.df[ , 1]
+a.df[1:3 ,c(1, 2)]
+```
+
+
+```{r}
+a.df <- data.frame(x = 1:6, 
+                   y = "a", 
+                   z = c(TRUE, FALSE))
 ```
 
 ```{r}
-a.df[[1]]
+is.data.frame(a.df)
+```
+
+```{r}
+a.df[[3]]
 ```
 
 選取第一個row
 ```{r}
-a.df[1, ]
+a.df[c(1,2), ]
+```
+
+```{r}
+
+colnames(a.df)
 ```
 
 ---
@@ -432,28 +458,39 @@ a.df[1:2, ]
 a.df[1, 1] <- 99
 ```
 --
+```{r}
+a.df[ , c("x","y")]
+```
 
 把a.df[ , 1] 所有值變成-99
 ```{r}
-a.df[ , 1] <- -99
+a.df[ , 1:3] <- -99
 ```
 
 ---
 
 用`subset()` 取中x大於3
 ```{r}
-subset(a.df,  x> 3)
+x <- subset(a.df,  x> 3)
+```
+```{r}
+x[,-3]
 ```
 
 --
 
+
 ```{r}
-subset(a.df, x > 5)[ , -3]
+a.df[,2]
+```
+
+```{r}
+subset(a.df, x > 3)[ , -3]
 ```
 --
 
 ```{r}
-subset(a.df, x > 3)$x
+subset(a.df, x > 3)$y
 ```
 
 ---
@@ -468,4 +505,5 @@ which(colnames(a.df) == "y")
 不要選取用`-`，選區用`+`
 ```{r}
 a.df[ , -which(colnames(a.df) == "y")]
+
 ```
