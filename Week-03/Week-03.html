@@ -242,7 +242,7 @@ member &lt;- taitung_county %&gt;%
 
 ```r
 member %&gt;%
-  ggplot(aes(x=menber, y=sum_money)) + 
+  ggplot(aes(x= reorder(menber, sum_money), y=sum_money)) + 
   geom_bar(stat = "identity") +
   theme(text = element_text(family = "STHeiti")) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
