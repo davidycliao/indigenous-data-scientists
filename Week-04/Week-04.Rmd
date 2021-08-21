@@ -1,0 +1,226 @@
+---
+title: ".hi-grey[原住民族資料分析線上訓練工作坊：R的基礎與應用]"
+subtitle: ".smallest.hi-slate[第四週]"
+author:
+  - .hi-slate[Kacing 廖彥傑]
+  - .smallest[英國艾賽克斯大學博士候選人]
+
+#date: "`r format(Sys.time(), '%d %B %Y')`"
+output:
+  xaringan::moon_reader:
+    css: ['default', 'metropolis', 'metropolis-fonts', 'my-css.css']     
+    lib_dir: libs
+    includes:
+      after_body: insert-logo.html
+    nature:
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: true
+---
+exclude: true
+
+
+```{r, include = F}
+# template refers to:@edrubin
+if (!require("pacman")) install.packages("pacman")
+library(pacman)
+p_load(
+  kableExtra, snakecase, janitor, huxtable, pagedown,                                                  # Formatting 
+  ggplot2, ggthemes, ggeffects, ggridges, igraph, network, ggpubr, ggformula, gridExtra, RColorBrewer, # Visualization
+  tidyverse, lubridate, stringr, dplyr, purrr, tibble, tidyr, lubridate, knitr,                        # General tidyverse toolkit 
+  readxl,reshape2, 
+  parallel, future, furrr, future.apply, doParallel,                                                   # Paralleling
+  emIRT, MCMCpack, wnominate, pscl, rgenoud, basicspace,                                               # Measurement Scaling   
+  devtools, reticulate, usethis                                                                        # programming
+)
+
+
+p_load_gh("kosukeimai/emIRT", # for scaling from Github
+          "tzuliu/ooc",
+          "cran/oc",
+          "uniofessex/asmcjr",
+          "wmay/dwnominate", dependencies = TRUE)
+
+
+# Define colors
+red_pink   = "#e64173"
+turquoise  = "#20B2AA"
+orange     = "#FFA500"
+red        = "#fb6107"
+blue       = "#3b3b9a"
+green      = "#8bb174"
+grey_light = "grey70"
+grey_mid   = "grey50"
+grey_dark  = "grey20"
+purple     = "#6A5ACD"
+brown      = "#9b684d"
+black      = "#000000"
+magenta_red = "#9b4d80"
+magenta_green = "#4d9b68"
+red_green = "#9b4d59"
+blue_green = "#4d599b"
+magenta_yellow = "#9b8f4d"
+
+
+# Knitr options
+opts_chunk$set(
+  comment = "#>",
+  fig.align = "center",
+  fig.height = 7,
+  fig.width = 10.5,
+  warning = F,
+  message = F
+)
+opts_chunk$set(dev = "svg")
+options(device = function(file, width, height) {
+  svg(tempfile(), width = width, height = height)
+})
+options(knitr.table.format = "html")
+
+# pagedown::chrome_print("", verbose = FALSE)
+
+
+```
+
+---
+layout: true
+# ggplot 案例一
+---
+name:
+&nbsp;
+
+
+```{r message=FALSE, warning=FALSE}
+library(tidyverse)
+taitung_county <- read_csv("data/taitung_county.csv", show_col_types = FALSE)
+member <- taitung_county %>%
+  rename(menber = 議員,
+         money = `建議金額(單位：千元)`,
+         year = 年,
+         district = `選區(95-100年)`) %>%
+  group_by(menber) %>%
+  mutate(sum_money = sum(money)) %>%
+  dplyr::select(menber, sum_money) %>%
+  dplyr::distinct(menber, .keep_all = TRUE)  
+```
+
+
+---
+
+```{r fig.height=3, fig.width=4}
+member %>%
+  ggplot(aes(x= reorder(menber, sum_money), y=sum_money)) + 
+  geom_bar(stat = "identity") +
+  theme(text = element_text(family = "STHeiti")) +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
+  coord_flip() +
+  xlab("議員") +
+  ylab("金額")
+```
+
+---
+layout: true
+# ggplot 案例二
+---
+name:
+
+```{r fig.height=3, fig.width=4}
+ethnicity <- taitung_county %>%
+  rename(menber = 議員,
+         money = `建議金額(單位：千元)`,
+         year = 年,
+         district = `選區(95-100年)`,
+         ethnicity = 族群別) %>%
+  group_by(ethnicity) %>%
+  mutate(sum_money = sum(money)) %>%
+  dplyr::select(ethnicity, sum_money) %>%
+  dplyr::distinct(ethnicity, .keep_all = TRUE)  
+```
+
+---
+
+```{r fig.height=3, fig.width=4}
+options(scipen = 999)
+ethnicity %>%
+  ggplot(aes(x= reorder(ethnicity, sum_money), y=sum_money)) + 
+  geom_bar(stat = "identity") +
+  theme(text = element_text(family = "STHeiti")) +
+  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, hjust=1)) +
+  #coord_flip() +
+  xlab("族群") +
+  ylab("金額")
+```
+
+---
+layout: true
+# ggplot 案例三
+---
+
+```{r fig.height=3, fig.width=4}
+ taitung_county %>%
+  rename(menber = 議員,
+         money = `建議金額(單位：千元)`,
+         year = 年,
+         district = `選區(95-100年)`,
+         ethnicity = 族群別,
+         electoral = `勝選幅度DQ`) %>%
+  ggplot(aes(x = money, y=electoral)) +
+  geom_point() +
+  #geom_point(aes(color=ethnicity)) +
+  geom_point(aes(size=factor(ethnicity))) +
+  theme(text = element_text(family = "STHeiti")) 
+```
+
+
+---
+
+```{r fig.height=3, fig.width=4}
+taitung_county %>%
+  rename(menber = 議員,
+         money = `建議金額(單位：千元)`,
+         year = 年,
+         district = `選區(95-100年)`,
+         ethnicity = 族群別,
+         electoral = `勝選幅度DQ`) %>%
+  ggplot(aes(x = money, y=electoral)) +
+  geom_point() +
+  geom_point(aes(color=ethnicity)) +
+  theme(text = element_text(family = "STHeiti")) 
+```
+
+---
+
+```{r fig.height=3, fig.width=4}
+taitung_county %>%
+  rename(menber = 議員,
+         money = `建議金額(單位：千元)`,
+         year = 年,
+         district = `選區(95-100年)`,
+         ethnicity = 族群別,
+         electoral = `勝選幅度DQ`) %>%
+  ggplot(aes(x = money, y=electoral)) +
+  geom_point() +
+  theme(text = element_text(family = "STHeiti"))  +
+  geom_point(aes(shape=factor(ethnicity),color=factor(ethnicity)),size=4,alpha=0.6)
+
+```
+
+---
+
+```{r fig.height=3, fig.width=4}
+taitung_county %>%
+  rename(menber = 議員,
+         money = `建議金額(單位：千元)`,
+         year = 年,
+         district = `選區(95-100年)`,
+         ethnicity = 族群別,
+         electoral = `勝選幅度DQ`) %>%
+  ggplot(aes(x = money, y=electoral)) +
+  geom_point() +
+  theme(text = element_text(family = "STHeiti"))  +
+  geom_point(aes(colour = year),size=4) + scale_colour_gradient(high='red',low = "blue") 
+```
+
+
+
+

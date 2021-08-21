@@ -77,7 +77,7 @@ options(device = function(file, width, height) {
 })
 options(knitr.table.format = "html")
 
-# pagedown::chrome_print("file:///Users/yenchiehliao/Dropbox/indigenous-data-scientists/Week-02/Week-02.html#1", verbose = FALSE)
+# pagedown::chrome_print("", verbose = FALSE)
 
 
 ```

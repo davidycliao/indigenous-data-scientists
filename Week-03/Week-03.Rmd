@@ -33,15 +33,11 @@ p_load(
   emIRT, MCMCpack, wnominate, pscl, rgenoud, basicspace,                                               # Measurement Scaling   
   devtools, reticulate, usethis                                                                        # programming
 )
-
-
 p_load_gh("kosukeimai/emIRT", # for scaling from Github
           "tzuliu/ooc",
           "cran/oc",
           "uniofessex/asmcjr",
           "wmay/dwnominate", dependencies = TRUE)
-
-
 # Define colors
 red_pink   = "#e64173"
 turquoise  = "#20B2AA"
@@ -60,8 +56,6 @@ magenta_green = "#4d9b68"
 red_green = "#9b4d59"
 blue_green = "#4d599b"
 magenta_yellow = "#9b8f4d"
-
-
 # Knitr options
 opts_chunk$set(
   comment = "#>",
@@ -76,10 +70,7 @@ options(device = function(file, width, height) {
   svg(tempfile(), width = width, height = height)
 })
 options(knitr.table.format = "html")
-
-# pagedown::chrome_print("file:///Users/yenchiehliao/Dropbox/indigenous-data-scientists/Week-03/Week-03.html#1", verbose = FALSE)
-
-
+# pagedown::chrome_print("", verbose = FALSE)
 ```
 
 ---
@@ -219,7 +210,6 @@ taitung_county %>%
   mutate(sum_money = sum(money)) %>%
   dplyr::select(year, sum_money) %>%
   dplyr::distinct(year, .keep_all = TRUE) 
-
 ```
 
 ---
@@ -265,6 +255,3 @@ name:
 --
 
 - 資料連結
-
-
-
