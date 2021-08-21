@@ -29,16 +29,202 @@ exclude: true
 
 ---
 layout: true
-# ggplot 案例一
+# 數據處理
 ---
 name:
 &amp;nbsp;
 
+- 使用readr進行數據導入
+
+--
+
+- 使用 dplyr 處理關係資料
+
+--
+
+- 使用 forcats 處理因子 （下周）
+
+--
+
+- 使用 lubridate 處理日期和時間 （下周）
+
+---
+layout: true
+# 使用readr數據導入
+---
+name:
+
+導入tidyverse
+
+--
 
 
 ```r
 library(tidyverse)
-taitung_county &lt;- read_csv("data/taitung_county.csv", show_col_types = FALSE)
+```
+
+--
+
+- `read_csv()` 導入逗號分隔文件
+
+--
+
+- `read_tsv()` 導入制表符分隔文件
+
+--
+
+- `read_delim()` 讀取使用任意分隔符的文件
+
+--
+
+導入資料
+
+
+```r
+taitung_county &lt;- read_csv("data/taitung_county.csv")
+```
+
+--
+
+存入資料
+
+
+```r
+write_csv(taitung_county, "taitung_county_2.csv")
+```
+
+---
+&amp;nbsp;
+
+讀取特定列，如`議員`, `年`,與 `性別` 
+
+```r
+select_columns &lt;- read_csv("data/taitung_county.csv",
+                           col_select = c("議員", "年", "性別"),
+                           show_col_types = FALSE)
+```
+
+--
+
+看前五筆
+
+```r
+head(select_columns, n = 5)
+```
+
+<table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-6">
+<col><col><col><tr>
+<th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">議員</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">年</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">性別</th></tr>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">江多利</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">95</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">江多利</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">95</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">1</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">朱連濟</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">95</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">0</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">朱連濟</td><td style="vertical-align: top; text-align: right; white-space: normal; padding: 6pt 6pt 6pt 6pt; font-weight: normal;">95</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">0</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">江堅壽</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">95</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">1</td></tr>
+</table>
+
+
+
+---
+layout: true
+# 使用 dplyr 處理關係資料
+---
+name:
+
+&amp;nbsp;
+
+- `%&gt;%` 
+
+--
+
+- 合併連結 (Mutating Joins)
+
+--
+
+- 篩選
+ 
+--
+
+- 集合
+
+---
+
+
+讀取資料
+
+```r
+library(tidyverse)
+taitung_county &lt;- read_csv("data/taitung_county.csv",
+                           show_col_types = FALSE)
+```
+
+--
+
+鍵 Key
+
+```r
+taitung_county %&gt;%
+  count(議員) %&gt;%
+  filter(n &gt; 10) %&gt;%
+  head(n=5)
+```
+
+<table class="huxtable" style="border-collapse: collapse; border: 0px; margin-bottom: 2em; margin-top: 2em; ; margin-left: auto; margin-right: auto;  " id="tab:unnamed-chunk-8">
+<col><col><tr>
+<th style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">議員</th><th style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: bold;">n</th></tr>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">余忠義</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0.4pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">11</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">嚴惠美</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">12</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">宋賢一</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">57</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">張國洲</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0pt 0pt;    padding: 6pt 6pt 6pt 6pt; font-weight: normal;">17</td></tr>
+<tr>
+<td style="vertical-align: top; text-align: left; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0pt 0.4pt 0.4pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">張清忠</td><td style="vertical-align: top; text-align: right; white-space: normal; border-style: solid solid solid solid; border-width: 0pt 0.4pt 0.4pt 0pt;    padding: 6pt 6pt 6pt 6pt; background-color: rgb(242, 242, 242); font-weight: normal;">19</td></tr>
+</table>
+
+
+---
+
+算出哪個年補助款
+
+```r
+library(tidyverse)
+taitung_county %&gt;%
+  rename(menber = 議員,
+         money = `建議金額(單位：千元)`,
+         year = 年,
+         district = `選區(95-100年)`) %&gt;%
+  group_by(year) %&gt;%
+  mutate(sum_money = sum(money)) %&gt;%
+  dplyr::select(year, sum_money) %&gt;%
+  dplyr::distinct(year, .keep_all = TRUE) 
+```
+
+```
+#&gt; # A tibble: 6 × 2
+#&gt; # Groups:   year [6]
+#&gt;    year sum_money
+#&gt;   &lt;dbl&gt;     &lt;dbl&gt;
+#&gt; 1    95    15414 
+#&gt; 2    96    28400.
+#&gt; 3    97    47599.
+#&gt; 4    98   456175.
+#&gt; 5    99   233657.
+#&gt; 6   100   278316.
+```
+
+---
+
+算出每一個議員拿的錢
+
+```r
+library(tidyverse)
 member &lt;- taitung_county %&gt;%
   rename(menber = 議員,
          money = `建議金額(單位：千元)`,
@@ -50,9 +236,9 @@ member &lt;- taitung_county %&gt;%
   dplyr::distinct(menber, .keep_all = TRUE)  
 ```
 
-
 ---
 
+基本視覺化：長條圖
 
 ```r
 member %&gt;%
@@ -61,135 +247,25 @@ member %&gt;%
   theme(text = element_text(family = "STHeiti")) +
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1)) +
   coord_flip() +
-  xlab("議員") +
-  ylab("金額")
+  xlab("XXXXXX") +
+  ylab("YYYYYY")
 ```
 
-&lt;img src="Week-03_files/figure-html/unnamed-chunk-3-1.svg" style="display: block; margin: auto;" /&gt;
+&lt;img src="Week-03_files/figure-html/unnamed-chunk-11-1.svg" style="display: block; margin: auto;" /&gt;
 
 ---
 layout: true
-# ggplot 案例二
+# 實作：2019 年文官調查資料
 ---
 name:
 
+&amp;nbsp;
 
-```r
-ethnicity &lt;- taitung_county %&gt;%
-  rename(menber = 議員,
-         money = `建議金額(單位：千元)`,
-         year = 年,
-         district = `選區(95-100年)`,
-         ethnicity = 族群別) %&gt;%
-  group_by(ethnicity) %&gt;%
-  mutate(sum_money = sum(money)) %&gt;%
-  dplyr::select(ethnicity, sum_money) %&gt;%
-  dplyr::distinct(ethnicity, .keep_all = TRUE)  
-```
+- [文官網路調查資料(合併 2019 年新加樣本與 2018 年追蹤樣本) 中文編碼簿](https://raw.githack.com/davidycliao/indigenous-data-scientists/main/Week-03/data/TIGCR-TGBS2019/Chinese/Panel%20and%20new%20samples/TIGCR-TGBS2019_CH_Questionnaire.pdf)
 
----
+--
 
-
-```r
-options(scipen = 999)
-ethnicity %&gt;%
-  ggplot(aes(x= reorder(ethnicity, sum_money), y=sum_money)) + 
-  geom_bar(stat = "identity") +
-  theme(text = element_text(family = "STHeiti")) +
-  theme(axis.text.x = element_text(angle = 60, vjust = 0.5, hjust=1)) +
-  #coord_flip() +
-  xlab("族群") +
-  ylab("金額")
-```
-
-&lt;img src="Week-03_files/figure-html/unnamed-chunk-5-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-layout: true
-# ggplot 案例二
----
-
-
-
-
-```r
- taitung_county %&gt;%
-  rename(menber = 議員,
-         money = `建議金額(單位：千元)`,
-         year = 年,
-         district = `選區(95-100年)`,
-         ethnicity = 族群別,
-         electoral = `勝選幅度DQ`) %&gt;%
-  ggplot(aes(x = money, y=electoral)) +
-  geom_point() +
-  #geom_point(aes(color=ethnicity)) +
-  geom_point(aes(size=factor(ethnicity))) +
-  theme(text = element_text(family = "STHeiti")) 
-```
-
-&lt;img src="Week-03_files/figure-html/unnamed-chunk-6-1.svg" style="display: block; margin: auto;" /&gt;
-
-
----
-
-
-```r
-taitung_county %&gt;%
-  rename(menber = 議員,
-         money = `建議金額(單位：千元)`,
-         year = 年,
-         district = `選區(95-100年)`,
-         ethnicity = 族群別,
-         electoral = `勝選幅度DQ`) %&gt;%
-  ggplot(aes(x = money, y=electoral)) +
-  geom_point() +
-  geom_point(aes(color=ethnicity)) +
-  theme(text = element_text(family = "STHeiti")) 
-```
-
-&lt;img src="Week-03_files/figure-html/unnamed-chunk-7-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-
-
-```r
- taitung_county %&gt;%
-  rename(menber = 議員,
-         money = `建議金額(單位：千元)`,
-         year = 年,
-         district = `選區(95-100年)`,
-         ethnicity = 族群別,
-         electoral = `勝選幅度DQ`) %&gt;%
-  ggplot(aes(x = money, y=electoral)) +
-  geom_point() +
-  theme(text = element_text(family = "STHeiti"))  +
-  geom_point(aes(shape=factor(ethnicity),color=factor(ethnicity)),size=4,alpha=0.6)
-```
-
-&lt;img src="Week-03_files/figure-html/unnamed-chunk-8-1.svg" style="display: block; margin: auto;" /&gt;
-
----
-
-
-```r
-taitung_county %&gt;%
-  rename(menber = 議員,
-         money = `建議金額(單位：千元)`,
-         year = 年,
-         district = `選區(95-100年)`,
-         ethnicity = 族群別,
-         electoral = `勝選幅度DQ`) %&gt;%
-  ggplot(aes(x = money, y=electoral)) +
-  geom_point() +
-  theme(text = element_text(family = "STHeiti"))  +
-  geom_point(aes(colour = year),size=4) + scale_colour_gradient(high='red',low = "blue") 
-```
-
-&lt;img src="Week-03_files/figure-html/unnamed-chunk-9-1.svg" style="display: block; margin: auto;" /&gt;
-
-
-
-
+- 資料連結
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
 <script src="https://remarkjs.com/downloads/remark-latest.min.js"></script>
